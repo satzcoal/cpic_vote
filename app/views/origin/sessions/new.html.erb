@@ -1,0 +1,28 @@
+<div class="login">
+  <div class="panel">
+    <% if flash[:alert] %>
+      <p id="notice"><%= flash[:alert] %></p>
+    <% end %>
+    <%= form_tag(nil, :class => 'form-horizontal') do %>
+      <fieldset>
+        <h1>
+          <legend>投票系统</legend>
+        </h1>
+        <label for="name" class="control-label">用户名:</label>
+
+        <div class="controls">
+          <%= text_field_tag :name, params[:name] %>
+        </div>
+        <div style="padding: 5px;"></div>
+        <label for="password" class="control-label">密码:</label>
+
+        <div class="controls">
+          <%= password_field_tag :password, params[:password] %>
+        </div>
+        <div style="padding-top: 5px">
+          <%= submit_tag '登录', :class => 'btn btn-info pull-right' %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <title><%= Origin::Site.current_site.title %></title>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<!-- Fixed top -->
+<div id="top">
+  <div class="fixed">
+    <a href="/" title="" class="logo"><img src="/p/img/logo.png" alt=""/></a>
+    <ul class="top-menu">
+      <li><a class="fullview"></a></li>
+      <li class="dropdown">
+        <a class="user-menu" data-toggle="dropdown"><span>欢迎回来，<%= Origin::User.find(session[:user_id]).pname %>
+          <b class="caret"></b></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" class="reset-password"><i class="fa fa-cog"></i>修改密码</a></li>
+          <li><a href="/origin/logout" title=""><i class="fa fa-remove"></i>退出</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- /fixed top -->
+
+<!-- Content container -->
+<div id="container">
+  <!-- Sidebar -->
+  <%= render :partial => 'common/sidebar' %>
+  <!-- /Sidebar -->
+  <!-- Content -->
+  <div id="content">
+    <div class="wrapper">
+      <% if notice %>
+        <script type="text/javascript">
+          $.jGrowl('<%= notice %>', {
+            <%= if flash[:notice_type]; raw "theme: 'growl-#{flash[:notice_type]}', "; end %>
+            <%= if flash[:header]; raw "header: '#{flash[:header]}', "; end %>
+            sticky: <%= if flash[:sticky]; flash[:sticky]; else 'false'; end %> });
+        </script>
+      <% end %>
+	
+      <div class="widget">
+      </div>
+      <%= yield %>
+      <div class="widget"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div id="footer">
+  <div class="copyrights">Copyright &copy; 2014 CPIC - 研发部 All rights reserved.
+  </div>
+</div>
+<!-- /footer -->
+</body>
+</html>

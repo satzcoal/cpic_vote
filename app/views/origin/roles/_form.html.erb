@@ -1,0 +1,42 @@
+<%= form_for(@origin_role) do |f| %>
+  <% if @origin_role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@origin_role.errors.count, "error") %> prohibited this origin_role from being saved:</h2>
+
+      <ul>
+        <% @origin_role.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :adminFlag %>
+    <br>
+    <%= f.check_box :adminFlag %>
+  </div>
+  <h3>选择权限</h3>
+  <ul>
+    <% @origin_role.sidebar_items.each do |item| %>
+      <li>
+        <%= check_box_tag 'item[]', item.id, true %>
+        <%= h "[#{item.parent_item.name}]#{item.name}" %>
+      </li>
+    <% end %>
+    <% (@sidebars - @origin_role.sidebar_items).each do |item| %>
+      <li>
+        <%= check_box_tag 'item[]', item.id %>
+        <%= h "[#{item.parent_item.name}]#{item.name}" %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

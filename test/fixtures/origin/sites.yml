@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  logo: MyString
+  title: MyString
+  isAuthorize: false
+  isRole: false
+  isSidebar: false
+  isTopbar: false
+  isNavbar: false
+
+two:
+  logo: MyString
+  title: MyString
+  isAuthorize: false
+  isRole: false
+  isSidebar: false
+  isTopbar: false
+  isNavbar: false

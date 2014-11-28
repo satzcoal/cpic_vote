@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @vote_vote.name %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @vote_vote.start_time %>
+</p>
+
+<p>
+  <strong>Stop time:</strong>
+  <%= @vote_vote.stop_time %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @vote_vote.url %>
+</p>
+
+<%= link_to 'Edit', edit_vote_vote_path(@vote_vote) %> |
+<%= link_to 'Back', vote_votes_path %>

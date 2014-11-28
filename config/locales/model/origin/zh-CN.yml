@@ -1,0 +1,11 @@
+#encoding: utf-8
+zh-CN:
+  activerecord:
+    models:
+      origin/user: "用户"
+    attributes:
+      origin/user:
+        name: "用户名"
+        pname: "姓名"
+        password: "密码"
+        password_confirmation: "重复密码"

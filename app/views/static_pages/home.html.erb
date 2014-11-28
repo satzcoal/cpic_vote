@@ -1,0 +1,50 @@
+<h5 class="widget-name"><i class="fa fa-home"></i><span>
+  <% user = Origin::User.find(session[:user_id]) %>
+  <%= h = Time.now.localtime.strftime('%H').to_i
+      if h < 11
+        '早上好，'
+      elsif h < 15
+        '中午好，'
+      elsif h < 19
+        '下午好，'
+      else
+        '晚上好，'
+      end %><%= user.pname %>
+  ！</span></h5>
+<% if user.hashed_password == '673c6ca5dec5d04781ea78e5f9f952193c06a199583c436d4a99fe71e95dcf13' %>
+  <div class="alert widget">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    目前您的密码仍是默认密码，建议您在投票前 <a href="#" class="reset-password">修改密码！</a>
+  </div>
+<% end %>
+<div class="navbar">
+  <div class="navbar-inner">
+    <h6>近期的投票</h6>
+  </div>
+</div>
+<% if @votes.empty? %>
+  <div class="alert">
+    您暂时还没有选择候选人，请在下面的候选人表格内选择！
+  </div>
+<% else %>
+<table class="table table-striped table-bordered">
+  <thead>
+  <tr>
+    <th>名称</th>
+    <th>开始日期</th>
+    <th>截止日期</th>
+    <th>状态</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @votes.each do |v| %>
+    <tr>
+      <td><%= link_to v.name, v.url %></td>
+      <td><%= v.start_time %></td>
+      <td><%= v.stop_time %></td>
+      <td>0</td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>

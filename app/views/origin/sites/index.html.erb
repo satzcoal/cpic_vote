@@ -1,0 +1,37 @@
+<h1>Listing origin_sites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Logo</th>
+      <th>Title</th>
+      <th>Isauthorize</th>
+      <th>Isrole</th>
+      <th>Issidebar</th>
+      <th>Istopbar</th>
+      <th>Isnavbar</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @origin_sites.each do |origin_site| %>
+      <tr>
+        <td><%= origin_site.logo %></td>
+        <td><%= origin_site.title %></td>
+        <td><%= origin_site.isAuthorize %></td>
+        <td><%= origin_site.isRole %></td>
+        <td><%= origin_site.isSidebar %></td>
+        <td><%= origin_site.isTopbar %></td>
+        <td><%= origin_site.isNavbar %></td>
+        <td><%= link_to 'Show', origin_site %></td>
+        <td><%= link_to 'Edit', edit_origin_site_path(origin_site) %></td>
+        <td><%= link_to 'Destroy', origin_site, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Site', new_origin_site_path %>

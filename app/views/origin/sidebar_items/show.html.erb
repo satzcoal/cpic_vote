@@ -1,0 +1,22 @@
+<p>
+  <strong>Name:</strong>
+  <%= @origin_sidebar_item.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @origin_sidebar_item.url %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @origin_sidebar_item.site_id %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @origin_sidebar_item.parent_id %>
+</p>
+
+<%= link_to 'Edit', edit_origin_sidebar_item_path(@origin_sidebar_item) %> |
+<%= link_to 'Back', origin_sidebar_items_path %>

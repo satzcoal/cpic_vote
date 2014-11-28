@@ -1,0 +1,12 @@
+<p>
+  <strong>Name:</strong>
+  <%= @origin_role.name %>
+</p>
+
+<p>
+  <strong>Adminflag:</strong>
+  <%= @origin_role.adminFlag %>
+</p>
+
+<%= link_to 'Edit', edit_origin_role_path(@origin_role) %> |
+<%= link_to 'Back', origin_roles_path %>

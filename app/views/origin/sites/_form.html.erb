@@ -1,0 +1,45 @@
+<%= form_for(@origin_site) do |f| %>
+  <% if @origin_site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@origin_site.errors.count, "error") %> prohibited this origin_site from being saved:</h2>
+
+      <ul>
+      <% @origin_site.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :logo %><br>
+    <%= f.text_field :logo %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :isAuthorize %><br>
+    <%= f.check_box :isAuthorize %>
+  </div>
+  <div class="field">
+    <%= f.label :isRole %><br>
+    <%= f.check_box :isRole %>
+  </div>
+  <div class="field">
+    <%= f.label :isSidebar %><br>
+    <%= f.check_box :isSidebar %>
+  </div>
+  <div class="field">
+    <%= f.label :isTopbar %><br>
+    <%= f.check_box :isTopbar %>
+  </div>
+  <div class="field">
+    <%= f.label :isNavbar %><br>
+    <%= f.check_box :isNavbar %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

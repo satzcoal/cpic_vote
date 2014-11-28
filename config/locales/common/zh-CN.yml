@@ -1,0 +1,7 @@
+#encoding: utf-8
+zh-CN:
+    errors:
+      messages:
+        blank: "不能为空"
+        taken: "必须唯一"
+        confirmation: "两次输入不一致"

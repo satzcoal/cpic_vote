@@ -1,0 +1,37 @@
+<%= form_for(@origin_sidebar_item) do |f| %>
+  <% if @origin_sidebar_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@origin_sidebar_item.errors.count, "error") %> prohibited this origin_sidebar_item from being
+        saved:</h2>
+
+      <ul>
+        <% @origin_sidebar_item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :url %>
+    <br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :parent_id %>
+    <br>
+    <%= f.select :parent_id, Origin::SidebarItem.where(:parent_id => nil).map { |item| [item.name, item.id] }, {include_blank: true} %>
+  </div>
+  <div class="field">
+    <%= f.label :active_flag %><br>
+    <%= f.check_box :active_flag %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

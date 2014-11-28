@@ -1,0 +1,37 @@
+<div class="right-content">
+  <div class="nav">
+    <div class="navbar-inner"><h6>菜单列表</h6></div>
+  </div>
+  <div class="well-white body">
+    <table class="table">
+      <thead>
+      <thead>
+      <tr>
+        <th>菜单名称</th>
+        <th>路径</th>
+        <th>位置</th>
+        <th>父节点</th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @origin_sidebar_items.each do |origin_sidebar_item| %>
+          <tr>
+            <td><%= origin_sidebar_item.name %></td>
+            <td><%= origin_sidebar_item.url %></td>
+            <td><%= origin_sidebar_item.site_id %></td>
+            <td><%= origin_sidebar_item.parent_id %></td>
+            <td><%= link_to '查看', origin_sidebar_item %>&nbsp;<%= link_to '编辑', edit_origin_sidebar_item_path(origin_sidebar_item) %>&nbsp;
+              <%= link_to '删除', origin_sidebar_item, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="align-center">
+      <%= link_to '新建菜单项', new_origin_sidebar_item_path, {:Class => "btn btn-primary"} %>
+    </div>
+
+  </div>
+</div>
+
