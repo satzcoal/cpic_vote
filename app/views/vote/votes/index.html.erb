@@ -1,31 +1,35 @@
-<h1>Listing vote_votes</h1>
-
-<table>
-  <thead>
+<h5 class="widget-name"><i class="fa fa-edit"></i>所有投票</h5>
+<div class="navbar">
+  <div class="navbar-inner">
+    <h6>投票列表</h6>
+    <%= link_to '新建投票', new_vote_vote_path, :class => 'btn btn-success pull-right' %>
+  </div>
+</div>
+<% if @vote_votes.empty? %>
+  <div class="alert">
+    暂时还没有投票，请新建投票！
+  </div>
+<% else %>
+  <table class="table table-striped table-bordered table-condensed table-hover">
+    <thead>
     <tr>
-      <th>Name</th>
-      <th>Start time</th>
-      <th>Stop time</th>
-      <th>Url</th>
-      <th colspan="3"></th>
+      <th>名称</th>
+      <th>状态</th>
+      <th>开始时间</th>
+      <th>截止时间</th>
+      <th>操作</th>
     </tr>
-  </thead>
-
-  <tbody>
-    <% @vote_votes.each do |vote_vote| %>
+    </thead>
+    <tbody>
+    <% @vote_votes.each do |v| %>
       <tr>
-        <td><%= vote_vote.name %></td>
-        <td><%= vote_vote.start_time %></td>
-        <td><%= vote_vote.stop_time %></td>
-        <td><%= vote_vote.url %></td>
-        <td><%= link_to 'Show', vote_vote %></td>
-        <td><%= link_to 'Edit', edit_vote_vote_path(vote_vote) %></td>
-        <td><%= link_to 'Destroy', vote_vote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= v.name %></td>
+        <td><%= v.status %></td>
+        <td><%= v.start_time %></td>
+        <td><%= v.stop_time %></td>
+        <td></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Vote', new_vote_vote_path %>
+    </tbody>
+  </table>
+<% end %>

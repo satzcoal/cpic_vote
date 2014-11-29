@@ -1,46 +1,48 @@
 # encoding: utf-8
 class Vote::GonghuiController < ApplicationController
+  @@vote = Vote::Vote.find_by_en_name('Gonghui')
+
+  before_action :set_ins
+
   def show
-    voter_id = session[:user_id]
-    @gonghui = Vote::Gonghui.find_or_create_by(:user_id => voter_id)
-    @origin_users = Origin::User.all - @gonghui.res_list
+    @users = Origin::User.all - @ins.results
   end
 
   def vote_user
-    voter_id = session[:user_id]
-    user_id = params[:user_id]
-    if Vote::Gonghui.is_full?(voter_id)
-      redirect_to :back, notice: '对不起，您的投票名额已满！'
+    item_id = params[:item_id]
+    if @ins.is_allow_more?
+      @ins.vote_item(item_id)
+      redirect_to :back, notice: '选择成功！'
     else
-      Vote::Gonghui.vote_user(voter_id, user_id)
-      redirect_to :back, notice: '投票成功！'
+      redirect_to :back, notice: '对不起，您的选择名额已满！'
     end
   end
 
   def unvote_user
-    voter_id = session[:user_id]
-    user_id = params[:user_id]
-    Vote::GonghuiUserRelation.where(:voter_id => voter_id, :user_id => user_id).each { |r| r.destroy }
+    item_id = params[:item_id]
+    @ins.relations.where(:item_id => item_id).each { |i| i.destroy }
     redirect_to :back, notice: '取消成功！'
   end
 
   def submit
-    gonghui_id = params[:gonghui_id]
-    @gonghui = Vote::Gonghui.find(gonghui_id)
-    if @gonghui.res_list.count == 2
-      @gonghui.status = 1
-      @gonghui.save
+    if @ins.is_validate?
+      @ins.status = 1
+      @ins.save
       redirect_to :back, notice: '提交成功！'
     else
-      redirect_to :back, notice: "您只选择了#{@gonghui.res_list.count.to_s}位候选人，请继续选择！"
+      redirect_to :back, notice: "您只选择了#{@ins.results.count.to_s}位候选人，请继续选择！"
     end
   end
 
   def reedit
-    gonghui_id = params[:gonghui_id]
-    gonghui = Vote::Gonghui.find(gonghui_id)
-    gonghui.status = 0
-    gonghui.save
+    @ins.status = 0
+    @ins.save
     redirect_to :back
+  end
+
+  private
+  def set_ins
+    voter_id = session[:user_id]
+    @ins = Vote::InsVote.find_or_create_by(:user_id => voter_id, :vote_id => @@vote.id)
   end
 end

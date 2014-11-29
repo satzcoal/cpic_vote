@@ -1,5 +1,5 @@
 <h5 class="widget-name"><i class="fa fa-edit"></i>工会委员选举</h5>
-<% if @gonghui.status != 0 %>
+<% if @ins.status != 0 %>
   <div class="alert widget">
     您已经完成了投票，请在投票截止后查询投票结果！</a>
   </div>
@@ -7,14 +7,14 @@
 <div class="navbar">
   <div class="navbar-inner">
     <h6>已选择列表</h6>
-    <% if @gonghui.status == 0 %>
-      <%= link_to '提交', vote_submit_path(@gonghui), :class => 'btn btn-success pull-right' %>
+    <% if @ins.status == 0 %>
+      <%= link_to '提交', vote_submit_path(@ins), :class => 'btn btn-success pull-right' %>
     <% else %>
-      <%= link_to '返回修改', vote_edit_path(@gonghui), :class => 'btn btn-info pull-right' %>
+      <%= link_to '返回修改', vote_edit_path(@ins), :class => 'btn btn-info pull-right' %>
     <% end %>
   </div>
 </div>
-<% if @gonghui.res_list.empty? %>
+<% if @ins.results.empty? %>
   <div class="alert">
     您暂时还没有选择候选人，请在下面的候选人表格内选择！
   </div>
@@ -25,18 +25,18 @@
       <th>姓名</th>
       <th>部门</th>
       <th>处室</th>
-      <% if @gonghui.status == 0 %>
+      <% if @ins.status == 0 %>
         <th>操作</th>
       <% end %>
     </tr>
     </thead>
     <tbody>
-    <% @gonghui.res_list.each do |u| %>
+    <% @ins.results.each do |u| %>
       <tr>
         <td><%= u.pname %></td>
         <td><%= u.branch %></td>
         <td><%= u.dept %></td>
-        <% if @gonghui.status == 0 %>
+        <% if @ins.status == 0 %>
           <td><%= link_to '取消', vote_unvote_user_path(u), :class => 'btn btn-danger' %></td>
         <% end %>
       </tr>
@@ -44,7 +44,7 @@
     </tbody>
   </table>
 <% end %>
-<% if @gonghui.status == 0 %>
+<% if @ins.status == 0 %>
   <h5></h5>
   <div class="navbar">
     <div class="navbar-inner">
@@ -61,7 +61,7 @@
     </tr>
     </thead>
     <tbody>
-    <% @origin_users.each do |origin_user| %>
+    <% @users.each do |origin_user| %>
       <tr>
         <td><%= origin_user.pname %></td>
         <td><%= origin_user.branch %></td>

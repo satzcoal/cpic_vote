@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   namespace :vote do
     controller :gonghui do
       get 'gonghui' => :show
-      get 'gonghui/vote_user/:user_id' => :vote_user, :as => 'vote_user'
-      get 'gonghui/unvote_user/:user_id' => :unvote_user, :as => 'unvote_user'
-      get 'gonghui/submit/:gonghui_id' => :submit, :as => 'submit'
-      get 'gonghui/edit/:gonghui_id' => :reedit, :as => 'edit'
+      get 'gonghui/vote_user/:item_id' => :vote_user, :as => 'vote_user'
+      get 'gonghui/unvote_user/:item_id' => :unvote_user, :as => 'unvote_user'
+      get 'gonghui/submit' => :submit, :as => 'submit'
+      get 'gonghui/edit' => :reedit, :as => 'edit'
     end
   end
 
