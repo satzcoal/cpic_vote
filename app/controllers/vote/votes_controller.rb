@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Vote::VotesController < ApplicationController
   before_action :set_vote_vote, only: [:show, :edit, :update, :destroy]
 
@@ -62,13 +63,13 @@ class Vote::VotesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_vote_vote
-      @vote_vote = Vote::Vote.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_vote_vote
+    @vote_vote = Vote::Vote.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def vote_vote_params
-      params.require(:vote_vote).permit(:name, :start_time, :stop_time, :url)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def vote_vote_params
+    params.require(:vote_vote).permit(:name, :start_time, :stop_time, :url, :en_name, :max_num, :min_num, :vote_item)
+  end
 end

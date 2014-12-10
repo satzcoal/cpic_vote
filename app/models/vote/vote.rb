@@ -1,4 +1,12 @@
+# encoding: utf-8
 class Vote::Vote < ActiveRecord::Base
+
+  STATUS = {
+      0 => '未开始',
+      1 => '正在投票',
+      2 => '已截止'
+  }
+
   has_many :ins_votes, :class_name => 'Vote::InsVote', foreign_key: :vote_id
   before_save :gen_type, :gen_tmp_class
 
@@ -21,7 +29,6 @@ class Vote::Vote < ActiveRecord::Base
   end
 
   def gen_tmp_class
-
     vote_clz = gen_tmp_class_with_word(self.en_name + 'Vote', 'Vote::Vote')
     ins_clz = gen_tmp_class_with_word(self.en_name + 'Ins', 'Vote::InsVote')
     rel_clz = gen_tmp_class_with_word(self.en_name + 'Rel', 'Vote::VoteRelation')
@@ -71,5 +78,6 @@ class Vote::Vote < ActiveRecord::Base
       ins_clz.has_many :results, :class_name => vote_item, :through => :relations, :source => :item
     end
   end
+
   gen_all_tmp_class
 end

@@ -1,4 +1,4 @@
-<h5 class="widget-name"><i class="fa fa-edit"></i>工会委员选举（海选）</h5>
+<h5 class="widget-name"><i class="fa fa-edit"></i>工会委员选举（复选）</h5>
 <% if @ins.status != 0 %>
   <div class="alert widget">
     您已经完成了投票，请在投票截止后查询投票结果！</a>
@@ -8,9 +8,9 @@
   <div class="navbar-inner">
     <h6>已选择列表</h6>
     <% if @ins.status == 0 %>
-      <%= link_to '提交', vote_gonghui_submit_path(@ins), :class => 'btn btn-success pull-right' %>
+      <%= link_to '提交', vote_gonghui2_submit_path(@ins), :class => 'btn btn-success pull-right' %>
     <% else %>
-      <%= link_to '返回修改', vote_gonghui_edit_path(@ins), :class => 'btn btn-info pull-right' %>
+      <%= link_to '返回修改', vote_gonghui2_edit_path(@ins), :class => 'btn btn-info pull-right' %>
     <% end %>
   </div>
 </div>
@@ -37,7 +37,7 @@
         <td><%= u.branch %></td>
         <td><%= u.dept %></td>
         <% if @ins.status == 0 %>
-          <td><%= link_to '取消', vote_gonghui_unvote_user_path(u), :class => 'btn btn-danger' %></td>
+          <td><%= link_to '取消', vote_gonghui2_unvote_user_path(u), :class => 'btn btn-danger' %></td>
         <% end %>
       </tr>
     <% end %>
@@ -66,7 +66,7 @@
         <td><%= origin_user.pname %></td>
         <td><%= origin_user.branch %></td>
         <td><%= origin_user.dept %></td>
-        <td><%= link_to '选择', vote_gonghui_vote_user_path(origin_user), :class => 'btn btn-info' %></td>
+        <td><%= link_to '选择', vote_gonghui2_vote_user_path(origin_user), :class => 'btn btn-info' %></td>
       </tr>
     <% end %>
     </tbody>

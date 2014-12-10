@@ -11,7 +11,7 @@
         '晚上好，'
       end %><%= user.pname %>
   ！</span></h5>
-<% if user.hashed_password == '673c6ca5dec5d04781ea78e5f9f952193c06a199583c436d4a99fe71e95dcf13' %>
+<% if user.hashed_password == '2fd0ef754d261b5d75ed2135819df9e0b56fd538463b73677cd63c5f6cad13d1' %>
   <div class="alert widget">
     <button type="button" class="close" data-dismiss="alert">×</button>
     目前您的密码仍是默认密码，建议您在投票前 <a href="#" class="reset-password">修改密码！</a>
@@ -22,29 +22,105 @@
     <h6>正在进行的投票</h6>
   </div>
 </div>
-<% if @votes.empty? %>
+<% if @cur_votes.empty? %>
   <div class="alert">
-    您暂时还没有选择候选人，请在下面的候选人表格内选择！
+    暂时没有正在进行的投票！
   </div>
 <% else %>
-<table class="table table-striped table-bordered">
-  <thead>
-  <tr>
-    <th>名称</th>
-    <th>开始日期</th>
-    <th>截止日期</th>
-    <th>状态</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @votes.each do |v| %>
+  <table class="table table-striped table-bordered">
+    <thead>
     <tr>
-      <td><%= link_to v.name, v.url %></td>
-      <td><%= v.start_time %></td>
-      <td><%= v.stop_time %></td>
-      <td>0</td>
+      <th>名称</th>
+      <th>开始日期</th>
+      <th>截止日期</th>
+      <th>您的投票状态</th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% @cur_votes.each do |v| %>
+      <tr>
+        <td><%= link_to v.name, v.url %></td>
+        <td><%= v.start_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= v.stop_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td>
+          <% ins = v.ins_votes.where(:user_id => session[:user_id]).first %>
+          <%= if ins == nil || ins.status == 0
+                raw '<span class="label label-warning">未投票</span>'
+              else
+                raw '<span class="label label-success">已投票</span>'
+              end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<h5></h5>
+<div class="navbar">
+  <div class="navbar-inner">
+    <h6>即将开始的投票</h6>
+  </div>
+</div>
+<% if @will_votes.empty? %>
+  <div class="alert">
+    暂时没有即将开始的投票！
+  </div>
+<% else %>
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>开始日期</th>
+      <th>截止日期</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @will_votes.each do |v| %>
+      <tr>
+        <td><%= link_to v.name, v.url %></td>
+        <td><%= v.start_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= v.stop_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<h5></h5>
+<div class="navbar">
+  <div class="navbar-inner">
+    <h6>已经结束的投票</h6>
+  </div>
+</div>
+<% if @done_votes.empty? %>
+  <div class="alert">
+    暂时没有已经结束的投票！
+  </div>
+<% else %>
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>开始日期</th>
+      <th>截止日期</th>
+      <th>您的投票状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @done_votes.each do |v| %>
+      <tr>
+        <td><%= link_to v.name, v.url %></td>
+        <td><%= v.start_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= v.stop_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td>
+          <% ins = v.ins_votes.where(:user_id => session[:user_id]).first %>
+          <%= if ins == nil || ins.status == 0
+                raw '<span class="label label-warning">未投票</span>'
+              else
+                raw '<span class="label label-success">已投票</span>'
+              end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 <% end %>

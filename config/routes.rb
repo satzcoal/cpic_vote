@@ -1,17 +1,47 @@
 Rails.application.routes.draw do
-  namespace :vote do
-    resources :votes
-  end
-
   #---------------------------------------LEE ADD START
 
   namespace :vote do
+
+    resources :votes
+
+    get '1/start' => 'gonghui#start'
+    get '1/stop' => 'gonghui#stop'
+    get '1/score' => 'gonghui#score'
+    get '1/renew' => 'gonghui#renew'
+
+    get '2/start' => 'gonghui2#start'
+    get '2/stop' => 'gonghui2#stop'
+    get '2/score' => 'gonghui2#score'
+    get '2/renew' => 'gonghui2#renew'
+
+    get '3/start' => 'jingfei#start'
+    get '3/stop' => 'jingfei#stop'
+    get '3/score' => 'jingfei#score'
+    get '3/renew' => 'jingfei#renew'
+
+    controller :jingfei do
+      get 'jingfei' => :show
+      get 'jingfei/vote_user/:item_id' => :vote_user, :as => 'jingfei_vote_user'
+      get 'jingfei/unvote_user/:item_id' => :unvote_user, :as => 'jingfei_unvote_user'
+      get 'jingfei/submit' => :submit, :as => 'jingfei_submit'
+      get 'jingfei/edit' => :reedit, :as => 'jingfei_edit'
+    end
+
     controller :gonghui do
       get 'gonghui' => :show
-      get 'gonghui/vote_user/:item_id' => :vote_user, :as => 'vote_user'
-      get 'gonghui/unvote_user/:item_id' => :unvote_user, :as => 'unvote_user'
-      get 'gonghui/submit' => :submit, :as => 'submit'
-      get 'gonghui/edit' => :reedit, :as => 'edit'
+      get 'gonghui/vote_user/:item_id' => :vote_user, :as => 'gonghui_vote_user'
+      get 'gonghui/unvote_user/:item_id' => :unvote_user, :as => 'gonghui_unvote_user'
+      get 'gonghui/submit' => :submit, :as => 'gonghui_submit'
+      get 'gonghui/edit' => :reedit, :as => 'gonghui_edit'
+    end
+
+    controller :gonghui2 do
+      get 'gonghui2' => :show
+      get 'gonghui2/vote_user/:item_id' => :vote_user, :as => 'gonghui2_vote_user'
+      get 'gonghui2/unvote_user/:item_id' => :unvote_user, :as => 'gonghui2_unvote_user'
+      get 'gonghui2/submit' => :submit, :as => 'gonghui2_submit'
+      get 'gonghui2/edit' => :reedit, :as => 'gonghui2_edit'
     end
   end
 

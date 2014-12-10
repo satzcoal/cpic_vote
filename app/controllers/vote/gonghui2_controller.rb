@@ -1,12 +1,12 @@
 # encoding: utf-8
-class Vote::GonghuiController < ApplicationController
-  @@vote = Vote::Vote.find_by_en_name('Gonghui')
+class Vote::Gonghui2Controller < ApplicationController
+  @@vote = Vote::Vote.find_by_en_name('Gonghui2')
 
   before_action :set_ins
 
   def show
     if @@vote.status == 1
-      @users = Origin::User.all - @ins.results
+      @users = Origin::User.where(:vote_res => 1) - @ins.results
     elsif @@vote.status == 2
       redirect_to :action => :score
     elsif @@vote.status == 0
@@ -48,8 +48,8 @@ class Vote::GonghuiController < ApplicationController
 
   def start
     Origin::User.all.each do |user|
-      user.score = 0
-      user.vote_res = 0
+      user.score2 = 0
+      user.vote_res2 = 0
       user.save
     end
     @@vote.status = 1
@@ -62,15 +62,15 @@ class Vote::GonghuiController < ApplicationController
     @@vote.save
     @@vote.ins_votes.each do |ins|
       ins.results.each do |item|
-        item.score += 1
+        item.score2 += 1
         item.save
       end
       ins.status = 1
       ins.save
     end
 
-    Origin::User.order(:score => :desc).limit(@@vote.bingo_num).each do |u|
-      u.vote_res = 1
+    Origin::User.order(:score2 => :desc).limit(@@vote.bingo_num).each do |u|
+      u.vote_res2 = 1
       u.save
     end
 
@@ -78,8 +78,8 @@ class Vote::GonghuiController < ApplicationController
   end
 
   def score
-    @bingo_users = Origin::User.where(:vote_res => 1).order(:score => :desc)
-    @users = Origin::User.where(:vote_res => 0).order(:score => :desc)
+    @bingo_users = Origin::User.where(:vote_res2 => 1).order(:score2 => :desc)
+    @users = Origin::User.where(:vote_res => 1).order(:score2 => :desc) - @bingo_users
   end
 
   def renew

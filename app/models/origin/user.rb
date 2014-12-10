@@ -8,9 +8,6 @@ class Origin::User < ActiveRecord::Base
   validates :pname, :presence => true
   validates :password, :confirmation => true
 
-  has_many :vote_gonghui_user_relations, :class_name => 'Vote::GonghuiUserRelation', foreign_key: :user_id
-  has_many :vote_gonghuis, :class_name => 'Vote::Gonghui', through: :vote_gonghui_user_relations
-
   attr_reader :password
   validate :password_must_be_present
 

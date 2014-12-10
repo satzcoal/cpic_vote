@@ -24,10 +24,17 @@
     <% @vote_votes.each do |v| %>
       <tr>
         <td><%= v.name %></td>
-        <td><%= v.status %></td>
-        <td><%= v.start_time %></td>
-        <td><%= v.stop_time %></td>
-        <td></td>
+        <td><%= Vote::Vote::STATUS[v.status] %></td>
+        <td><%= v.start_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= v.stop_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= if v.status == 0
+                  link_to '开始', "#{v.id}/start"
+                end %>
+          <%= if v.status == 1
+                link_to '截止', "#{v.id}/stop"
+              end %>
+          <%= link_to '重置', "#{v.id}/renew" %>
+          <%= link_to '查看结果', "#{v.id}/score" %></td>
       </tr>
     <% end %>
     </tbody>
