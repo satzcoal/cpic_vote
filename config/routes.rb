@@ -9,11 +9,13 @@ Rails.application.routes.draw do
     get '1/stop' => 'gonghui#stop'
     get '1/score' => 'gonghui#score'
     get '1/renew' => 'gonghui#renew'
+    get '1/over' => 'gonghui#over'
 
     get '2/start' => 'gonghui2#start'
     get '2/stop' => 'gonghui2#stop'
     get '2/score' => 'gonghui2#score'
     get '2/renew' => 'gonghui2#renew'
+    get '2/over' => 'gonghui2#over'
 
     get '3/start' => 'jingfei#start'
     get '3/stop' => 'jingfei#stop'

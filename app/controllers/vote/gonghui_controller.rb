@@ -11,6 +11,8 @@ class Vote::GonghuiController < ApplicationController
       redirect_to :action => :score
     elsif @@vote.status == 0
       render :action => :ready
+    elsif @@vote.status == 3
+      render :action => :over
     end
   end
 
@@ -58,7 +60,7 @@ class Vote::GonghuiController < ApplicationController
   end
 
   def stop
-    @@vote.status = 2
+    @@vote.status = 3
     @@vote.save
     @@vote.ins_votes.each do |ins|
       ins.results.each do |item|

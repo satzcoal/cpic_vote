@@ -2,7 +2,6 @@
 require 'digest/sha2'
 
 class Origin::User < ActiveRecord::Base
-  has_history
   belongs_to :role, :class_name => 'Origin::Role', foreign_key: :role_id
   validates :name, :presence => true, :uniqueness => true
   validates :pname, :presence => true

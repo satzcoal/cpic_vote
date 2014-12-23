@@ -37,7 +37,7 @@ initPage = function () {
     oTable = $('#filer-table').dataTable({
 
         "aaSorting": [
-            [ 0, 'desc' ]
+            [ 3, 'desc' ]
         ],
         "bJQueryUI": false,
         "bAutoWidth": false,

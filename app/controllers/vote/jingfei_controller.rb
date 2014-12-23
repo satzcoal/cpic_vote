@@ -12,6 +12,8 @@ class Vote::JingfeiController < ApplicationController
       redirect_to :action => :score
     elsif @@vote.status == 0
       render :action => :ready
+    elsif @@vote.status == 3
+      render :action => :over
     end
   end
 
