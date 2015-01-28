@@ -5,6 +5,8 @@ class CreateOriginSidebarItems < ActiveRecord::Migration
       t.string :url
       t.integer :site_id
       t.integer :parent_id
+      t.integer :serial_number
+      t.boolean :active_flag
 
       t.timestamps
     end

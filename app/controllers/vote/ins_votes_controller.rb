@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Vote::InsVotesController < ApplicationController
+
   def show
     voter_id = session[:voter_id]
     vote_id = params[:vote_id]
@@ -19,7 +20,7 @@ class Vote::InsVotesController < ApplicationController
     end
   end
 
-  def unvote_user
+  def unvote
     voter_id = session[:user_id]
     user_id = params[:user_id]
     Vote::GonghuiUserRelation.where(:voter_id => voter_id, :user_id => user_id).each { |r| r.destroy }
@@ -44,5 +45,11 @@ class Vote::InsVotesController < ApplicationController
     gonghui.status = 0
     gonghui.save
     redirect_to :back
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_vote_ins
+    @vote_ins = Vote::VoteIns.find(params[:id])
   end
 end

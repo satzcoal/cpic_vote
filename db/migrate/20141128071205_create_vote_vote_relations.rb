@@ -1,7 +1,7 @@
 class CreateVoteVoteRelations < ActiveRecord::Migration
   def change
     create_table :vote_vote_relations do |t|
-      t.integer :voter_id
+      t.integer :ins_id
       t.integer :item_id
       t.string :type
 

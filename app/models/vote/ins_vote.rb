@@ -1,4 +1,4 @@
-class Vote::InsVote < ActiveRecord::Base
+class Vote::VoteIns < ActiveRecord::Base
 
   belongs_to :voter, :class_name => 'Origin::User', foreign_key: :user_id
   belongs_to :vote, :class_name => 'Vote::Vote', foreign_key: :vote_id

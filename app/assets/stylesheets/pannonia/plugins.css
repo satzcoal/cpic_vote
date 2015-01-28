@@ -121,7 +121,7 @@
 .uploader:hover span.action { background-position: 0 -24px; }
 .uploader:active span.action { background-position: 0 -48px; }
 .uploader span.filename { color: #777; cursor: pointer; max-width: 200px; font-size: 11px; line-height: 24px; float: left; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: default; }
-.uploader input { width: 256px; opacity: 0; filter: alpha(opacity:0); position: absolute; top: 0; right: 0; bottom: 0; float: right; height: 26px; border: none; cursor: pointer; }
+.uploader input { width: 256px; opacity: 0; filter: alpha(opacity=0); position: absolute; top: 0; right: 0; bottom: 0; float: right; height: 26px; border: none; cursor: pointer; }
 .uploader { display: -moz-inline-box; display: inline-block; vertical-align: middle; zoom: 1; *display: inline; }
 .uploader.disabled span.action { color: #aaa; }
 .uploader.disabled span.filename { border-color: #ddd; color: #aaa; }

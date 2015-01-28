@@ -1235,9 +1235,9 @@ table { max-width: 100%; background-color: transparent; border-collapse: collaps
 .dropdown-toggle:active, .open .dropdown-toggle { outline: 0; }
 .dropdown .caret { margin-top: 9px; margin-left: 3px; border-top-width: 3px; border-left-width: 3px; border-right-width: 3px; }
 .dropdown-menu { position: absolute; top: 100%; left: 0; z-index: 1000; display: none; float: left; min-width: 160px; margin: 0; font-size: 11px; list-style: none; background-color: #ffffff; border: 1px solid #ccc; *border-right-width: 2px; *border-bottom-width: 2px;
--webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
-   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 -webkit-background-clip: padding-box;
    -moz-background-clip: padding;
         background-clip: padding-box;
