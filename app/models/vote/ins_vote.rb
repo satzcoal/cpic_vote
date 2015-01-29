@@ -3,6 +3,9 @@ class Vote::VoteIns < ActiveRecord::Base
   belongs_to :voter, :class_name => 'Origin::User', foreign_key: :user_id
   belongs_to :vote, :class_name => 'Vote::Vote', foreign_key: :vote_id
 
+  has_many :relations, :class_name => 'Vote::VoteRelation', foreign_key: :ins_id
+  has_many :results, :class_name => 'Vote::VoteItem', :through => :relations, :source => :item
+
   def vote_item(item_id)
     self.transaction do
       self.relations.build(:item_id => item_id).save

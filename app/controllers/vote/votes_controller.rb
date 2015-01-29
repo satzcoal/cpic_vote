@@ -62,6 +62,22 @@ class Vote::VotesController < ApplicationController
     end
   end
 
+  # STATUS: new -> prepare
+  def prepare
+  end
+
+  # STATUS: prepare -> begin
+  def begin
+  end
+
+  # STATUS: begin -> finish
+  def finish
+   end
+
+  # STATUS: finish -> publish
+  def publish
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_vote_vote
