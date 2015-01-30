@@ -5,7 +5,7 @@
     <%= link_to '新建投票', new_vote_vote_path, :class => 'btn btn-success pull-right' %>
   </div>
 </div>
-<% if @vote_votes.empty? %>
+<% if @votes.empty? %>
   <div class="alert">
     暂时还没有投票，请新建投票！
   </div>
@@ -21,20 +21,13 @@
     </tr>
     </thead>
     <tbody>
-    <% @vote_votes.each do |v| %>
+    <% @votes.each do |v| %>
       <tr>
         <td><%= v.name %></td>
-        <td><%= Vote::Vote::STATUS[v.status] %></td>
+        <td><%= Vote::Vote.get_status v.status %></td>
         <td><%= v.start_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
         <td><%= v.stop_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
-        <td><%= if v.status == 0
-                  link_to '开始', "#{v.id}/start"
-                end %>
-          <%= if v.status == 1
-                link_to '截止', "#{v.id}/stop"
-              end %>
-          <%= link_to '重置', "#{v.id}/renew" %>
-          <%= link_to '查看结果', "#{v.id}/score" %></td>
+        <td><%== vote_index_op_buttom v %></td>
       </tr>
     <% end %>
     </tbody>

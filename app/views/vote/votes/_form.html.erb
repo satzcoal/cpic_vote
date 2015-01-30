@@ -1,49 +1,36 @@
-<%= form_for(@vote_vote) do |f| %>
-  <% if @vote_vote.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@vote_vote.errors.count, "error") %> prohibited this vote_vote from being saved:</h2>
-
-      <ul>
-      <% @vote_vote.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for(@vote, :html => {:class => 'form-horizontal row-fluid well'}) do |f| %>
+  <h3>基本信息</h3>
+  <fieldset>
+    <div>
+      <div class="control-group">
+        <%= f.label '投票名称：', :class => 'control-label' %>
+        <div class="controls"><input type="text" name="name" class="span12"/></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '开始时间：', :class => 'control-label' %>
+        <div class="controls"><input type="datetime-local" name="start_time" class="span12"/></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '截止时间：', :class => 'control-label' %>
+        <div class="controls"><input type="datetime-local" name="stop_time" class="span12"/></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '最小可选数量：', :class => 'control-label' %>
+        <div class="controls"><input type="text" name="min_num" class="span12"/></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '最大可选数量：', :class => 'control-label' %>
+        <div class="controls"><input type="text" name="max_num" class="span12"/></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '入选数量：', :class => 'control-label' %>
+        <div class="controls"><input type="text" name="bingo_num" class="span12"/></div>
+      </div>
     </div>
-  <% end %>
+  </fieldset>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :start_time %><br>
-    <%= f.datetime_select :start_time %>
-  </div>
-  <div class="field">
-    <%= f.label :stop_time %><br>
-    <%= f.datetime_select :stop_time %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :en_name %><br>
-    <%= f.text_field :en_name %>
-  </div>
-  <div class="field">
-    <%= f.label :max_num %><br>
-    <%= f.text_field :max_num %>
-  </div>
-  <div class="field">
-    <%= f.label :min_num %><br>
-    <%= f.text_field :min_num %>
-  </div>
-  <div class="field">
-    <%= f.label :vote_itme %><br>
-    <%= f.text_field :vote_item %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <h3>附加信息</h3>
+  <fieldset>
+    Hello
+  </fieldset>
 <% end %>
