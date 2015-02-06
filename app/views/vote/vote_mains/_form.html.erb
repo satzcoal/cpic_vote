@@ -1,0 +1,78 @@
+<%= form_for(@vote, :html => {:class => 'form-horizontal row-fluid well'}) do |f| %>
+  <fieldset class="step" id="step1">
+    <div class="step-title">
+      <i>1</i>
+      <h5>基本信息</h5>
+      <span>基本信息 -- 附加信息 -- 数据信息 -- 页面信息</span>
+    </div>
+    <div>
+      <div class="control-group">
+        <%= f.label '投票名称：', :class => 'control-label' %>
+        <div class="controls"><%= f.text_field :name, :size => 40, :class => 'span12' %></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '投票类型：', :class => 'control-label' %>
+        <div class="controls">
+          <select name="select2" class="styled" >
+            <option value="opt1">限时投票</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="step" id="step2">
+    <div class="step-title">
+      <i>2</i>
+      <h5>附加信息</h5>
+      <span>基本信息 -- 附加信息 -- 数据信息 -- 页面信息</span>
+    </div>
+    <div>
+      <div class="control-group">
+        <%= f.label '开始时间：', :class => 'control-label' %>
+        <div class="controls"><%= f.text_field :start_time, :class => 'span12', :type => 'datetime-local' %></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '截止时间：', :class => 'control-label' %>
+        <div class="controls"><%= f.text_field :stop_time, :class => 'span12', :type => 'datetime-local' %></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '最小可选数量：', :class => 'control-label' %>
+        <div class="controls"><%= f.number_field :min_num, :class => 'span12' %></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '最大可选数量：', :class => 'control-label' %>
+        <div class="controls"><%= f.number_field :max_num, :class => 'span12' %></div>
+      </div>
+      <div class="control-group">
+        <%= f.label '入选数量：', :class => 'control-label' %>
+        <div class="controls"><%= f.number_field :bingo_num, :class => 'span12' %></div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="step" id="step3">
+    <div class="step-title">
+      <i>3</i>
+      <h5>数据信息</h5>
+      <span>基本信息 -- 附加信息 -- 数据信息 -- 页面信息</span>
+    </div>
+    <div>
+      <div class="control-group">
+        <%= f.label '上传投票数据：', :class => 'control-label' %>
+        <div class="controls"><%= f.file_field :data_file, :class => 'styled' %></div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="step" id="step4">
+    <div class="step-title">
+      <i>4</i>
+      <h5>页面信息</h5>
+      <span>基本信息 -- 附加信息 -- 数据信息 -- 页面信息</span>
+    </div>
+    <div>
+    </div>
+  </fieldset>
+  <div class="form-actions align-right">
+    <input class="btn" id="back-1" value="131231" type="reset"/>
+    <input type="submit" class="btn btn-danger" id="next-1" value="3213123">
+  </div>
+<% end %>

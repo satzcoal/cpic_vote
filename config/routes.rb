@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :vote do
 
-    resources :votes
+    resources :vote_mains
 
     get '1/start' => 'gonghui#start'
     get '1/stop' => 'gonghui#stop'

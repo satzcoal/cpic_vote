@@ -1,11 +1,13 @@
 var initPage;
 initPage = function () {
 
-  var form = $("#new_vote_vote").show();
-  form.steps({
-    headerTag: "h3",
-    bodyTag: "fieldset",
-    transitionEffect: "slideLeft"
+  //===== Form wizards =====//
+
+  $("#new_vote_vote_main").formwizard({
+    formPluginEnabled: false,
+    validationEnabled: false,
+    focusFirstInput: false,
+    disableUIStyles: true
   });
 
   //===== Hide/show sidebar =====//

@@ -1,6 +1,6 @@
-class CreateVoteVotes < ActiveRecord::Migration
+class CreateVoteVoteMains < ActiveRecord::Migration
   def change
-    create_table :vote_votes do |t|
+    create_table :vote_vote_mains do |t|
       t.string :name
       t.datetime :start_time
       t.datetime :stop_time

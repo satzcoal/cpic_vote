@@ -1,12 +1,12 @@
 # encoding: utf-8
-class Vote::Vote < ActiveRecord::Base
+class Vote::VoteMain < ActiveRecord::Base
 
   has_many :ins_votes, :class_name => 'Vote::InsVote', foreign_key: :vote_id
   has_many :vote_items, :class_name => 'Vote::VoteItem', foreign_key: :vote_id
 
-  #before_save 'Vote::Vote.gen_tmp_class vote_item, en_name'
+  #before_save 'Vote::VoteMain.gen_tmp_class vote_item, en_name'
 
-  define_model_callbacks :prepare, :process, :finish, :publish
+  #define_model_callbacks :prepare, :process, :finish, :publish
 
   STATUS = {
       0 => '未启用',

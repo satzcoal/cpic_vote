@@ -28,7 +28,7 @@ if (site.sidebar_items.empty?)
   main_item.sub_items.build(name: '工会委员选举（复选）', url: '/vote/gonghui2')
 
   toupiao_item = site.sidebar_items.build(name: '投票管理', url: '#')
-  toupiao_item.sub_items.build(name: '所有投票', url: '/vote/votes')
+  toupiao_item.sub_items.build(name: '所有投票', url: '/vote/vote_mains')
 
   xitong_item = site.sidebar_items.build(name: '系统管理', url: '#')
   xitong_item.sub_items.build(name: '用户管理', url: '/origin/users')
