@@ -1,6 +1,9 @@
-<h1>Editing vote_vote</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @vote %> |
-<%= link_to 'Back', vote_vote_mains_path %>
+<div class="widget">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <h6>编辑投票</h6>
+      <%= link_to '返回所有投票', vote_vote_mains_path, :class => 'btn btn-success pull-right' %>
+    </div>
+  </div>
+  <%= render 'form' %>
+</div>

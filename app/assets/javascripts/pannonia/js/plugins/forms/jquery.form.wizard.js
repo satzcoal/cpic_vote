@@ -91,13 +91,13 @@
 				this.backButtonInitinalValue = this.backButton.val();
 				this.backButton.val(this.options.textBack);
 
-			if(this.options.validationEnabled && jQuery().validate  == undefined){
+			if(this.options.validationEnabled && jQuery().validationEngine  == undefined){
 				this.options.validationEnabled = false;
 				if( (window['console'] !== undefined) ){
 					console.log("%s", "validationEnabled option set, but the validation plugin is not included");
 				}
 			}else if(this.options.validationEnabled){
-				this.element.validate(this.options.validationOptions);
+				this.element.validationEngine(this.options.validationOptions);
 			}
 			if(this.options.formPluginEnabled && jQuery().ajaxSubmit == undefined){
 				this.options.formPluginEnabled = false;
@@ -115,9 +115,9 @@
 					var hashStep = event.getState( "_" + $(wizard.element).attr( 'id' )) || wizard.firstStep;
 					if(hashStep !== wizard.currentStep){
 						if(wizard.options.validationEnabled && hashStep === wizard._navigate(wizard.currentStep)){
-							if(!wizard.element.valid()){
+							if(!wizard.element.validationEngine('validate')){
 								wizard._updateHistory(wizard.currentStep);
-								wizard.element.validate().focusInvalid();
+								//wizard.element.validate().focusInvalid();
 
 								return false;
 							}
@@ -147,8 +147,8 @@
 
 		_next : function(){
 			if(this.options.validationEnabled){
-				if(!this.element.valid()){
-					this.element.validate().focusInvalid();
+				if(!this.element.validationEngine('validate')){
+					//this.element.validate().focusInvalid();
 					return false;
 				}
 			}

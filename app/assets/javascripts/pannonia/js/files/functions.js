@@ -3,12 +3,15 @@ initPage = function () {
 
   //===== Form wizards =====//
 
-  $("#new_vote_vote_main").formwizard({
-    formPluginEnabled: false,
+  $(".wizard_form").formwizard({
     validationEnabled: false,
+    validationOptions: {promptPosition : "topRight:-122,-5"},
     focusFirstInput: false,
-    disableUIStyles: true
+    textNext: '下一步',
+    textBack: '后退',
+    textSubmit: '提交'
   });
+  $("#new_vote_vote_main").validationEngine({promptPosition : "topRight:-122,-5"});
 
   //===== Hide/show sidebar =====//
   $('.fullview').click(function () {
@@ -129,6 +132,10 @@ initPage = function () {
       bootbox.dialog(f, cb);
     }
   );
+
+  $(".styled").uniform({ radioClass: 'choice' });
+
+  $(".validate_form").validationEngine({promptPosition : "topRight:-122,-5"});
 }
 $(document).ready(initPage);
 $(document).on('page:load', initPage);

@@ -807,7 +807,7 @@
 
 			 // Call the original validation method. If we are dealing with dates or checkboxes, also pass the form
 			 var errorMsg;
-			 if (rule == "future" || rule == "past"  || rule == "maxCheckbox" || rule == "minCheckbox") {
+			 if (rule == "future" || rule == "past"  || rule == "maxCheckbox" || rule == "minCheckbox" || rule == "min" || rule == "max")  {
 				 errorMsg = originalValidationMethod(form, field, rules, i, options);
 			 } else {
 				 errorMsg = originalValidationMethod(field, rules, i, options);
@@ -1093,8 +1093,17 @@
 		*            user options
 		* @return an error string if validation failed
 		*/
-		_min: function(field, rules, i, options) {
-			var min = parseFloat(rules[i + 1]);
+		_min: function(form, field, rules, i, options) {
+      var p=rules[i + 1];
+      var fieldAlt = $(form.find("input[id='" + p.replace(/^#+/, '') + "']"));
+      var min;
+      if (!isNaN(p)){
+        min = parseFloat(p);
+      } else if (undefined != fieldAlt.val()) {
+        if (fieldAlt.is(":disabled"))
+          return;
+        min = parseFloat(fieldAlt.val());
+      }
 			var len = parseFloat(field.val());
 
 			if (len < min) {
@@ -1113,8 +1122,17 @@
 		*            user options
 		* @return an error string if validation failed
 		*/
-		_max: function(field, rules, i, options) {
-			var max = parseFloat(rules[i + 1]);
+		_max: function(form, field, rules, i, options) {
+      var p=rules[i + 1];
+      var fieldAlt = $(form.find("input[id='" + p.replace(/^#+/, '') + "']"));
+      var max;
+      if (!isNaN(p)){
+        max = parseFloat(p);
+      } else if (undefined != fieldAlt.val()) {
+        if (fieldAlt.is(":disabled"))
+          return;
+        max = parseFloat(fieldAlt.val());
+      }
 			var len = parseFloat(field.val());
 
 			if (len >max ) {
@@ -1137,7 +1155,7 @@
 		_past: function(form, field, rules, i, options) {
 
 			var p=rules[i + 1];
-			var fieldAlt = $(form.find("input[name='" + p.replace(/^#+/, '') + "']"));
+			var fieldAlt = $(form.find("input[id='" + p.replace(/^#+/, '') + "']"));
 			var pdate;
 
 			if (p.toLowerCase() == "now") {
@@ -1170,7 +1188,7 @@
 		_future: function(form, field, rules, i, options) {
 
 			var p=rules[i + 1];
-			var fieldAlt = $(form.find("input[name='" + p.replace(/^#+/, '') + "']"));
+			var fieldAlt = $(form.find("input[id='" + p.replace(/^#+/, '') + "']"));
 			var pdate;
 
 			if (p.toLowerCase() == "now") {

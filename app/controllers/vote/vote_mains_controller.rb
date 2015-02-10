@@ -43,7 +43,7 @@ class Vote::VoteMainsController < ApplicationController
   # PATCH/PUT /vote/votes/1.json
   def update
     respond_to do |format|
-      if @vote.update(vote_vote_params)
+      if @vote.update(vote_params)
         format.html { redirect_to @vote, notice: 'Vote was successfully updated.' }
         format.json { render :show, status: :ok, location: @vote }
       else
