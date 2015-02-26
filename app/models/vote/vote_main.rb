@@ -25,23 +25,35 @@ class Vote::VoteMain < ActiveRecord::Base
     end
   end
 
-  def self.import(file, has_title)
+  def self.import(vote, file, has_title)
     spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      item = Vote::VoteItem.new
-      item.attributes = row.to_hash.slice(*accessible_attributes)
-      product.save!
+    if has_title
+      header = spreadsheet.row(1)
+    else
+      header = []
+      spreadsheet.last_column.times { |x| header[x] = "tmp#{x}" }
+    end
+
+    ((has_title ? 2 : 1)..spreadsheet.last_row).each do |i|
+      #row = Hash[[header, spreadsheet.row(i)].transpose]
+      item = vote.vote_items.build
+      vote.titles = header.join('|||')
+      item.content = spreadsheet.row(i).join('|||')
+
+      #item.attributes = row.to_hash.slice(*accessible_attributes)
     end
   end
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
-      when ".csv" then Roo::CSV.new(file.path, nil)
-      when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-      when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-      else raise "Unknown file type: #{file.original_filename}"
+      when ".csv" then
+        Roo::CSV.new(file.path, nil)
+      when ".xls" then
+        Roo::Excel.new(file.path, nil, :ignore)
+      when ".xlsx" then
+        Roo::Excelx.new(file.path, nil, :ignore)
+      else
+        raise "Unknown file type: #{file.original_filename}"
     end
   end
 

@@ -26,7 +26,7 @@ class Vote::VoteMainsController < ApplicationController
   # POST /vote/votes.json
   def create
     @vote = Vote::VoteMain.new(vote_params)
-    Vote::VoteMain.import(params[:data_file], params[:data_file_has_title]) if params[:data_file]
+    Vote::VoteMain.import(@vote, params[:vote_vote_main][:data_file], params[:data_file_has_title]) if params[:vote_vote_main][:data_file]
 
     respond_to do |format|
       if @vote.save
@@ -42,7 +42,7 @@ class Vote::VoteMainsController < ApplicationController
   # PATCH/PUT /vote/votes/1
   # PATCH/PUT /vote/votes/1.json
   def update
-    Vote::VoteMain.import(params[:vote_vote_main][:data_file], params[:vote_vote_main][:data_file_has_title]) if params[:vote_vote_main][:data_file]
+    Vote::VoteMain.import(@vote, params[:vote_vote_main][:data_file], params[:data_file_has_title]) if params[:vote_vote_main][:data_file]
     respond_to do |format|
       if @vote.update(vote_params)
         format.html { redirect_to @vote, notice: 'Vote was successfully updated.' }

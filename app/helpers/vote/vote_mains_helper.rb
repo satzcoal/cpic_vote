@@ -15,7 +15,7 @@ module Vote::VoteMainsHelper
 
     (res + (link_to '禁用', "/vote/vote_mains/#{vote.id}/destroy")).html_safe
   end
-d
+
   def time_format(time, pattern='%Y-%m-%d %H:%M:%S')
     if time.present?
       return time.localtime.strftime(pattern)

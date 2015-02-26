@@ -15,8 +15,10 @@
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '192.168.254.10', user: 'root', roles: %w{web app db}
+server '192.168.254.10', user: 'root', roles: %w{web ap db}
 set :rails_env, :production
+
+after 'deploy', 'deploy:migrate'
 
 # Custom SSH Options
 # ==================
