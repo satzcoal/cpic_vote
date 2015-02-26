@@ -6,7 +6,6 @@ class Vote::VoteMainsController < ApplicationController
   # GET /vote/votes.json
   def index
     @votes = Vote::VoteMain.all
-    puts @votes
   end
 
   # GET /vote/votes/1
@@ -27,6 +26,7 @@ class Vote::VoteMainsController < ApplicationController
   # POST /vote/votes.json
   def create
     @vote = Vote::VoteMain.new(vote_params)
+    Vote::VoteMain.import(params[:data_file], params[:data_file_has_title]) if params[:data_file]
 
     respond_to do |format|
       if @vote.save
@@ -42,6 +42,7 @@ class Vote::VoteMainsController < ApplicationController
   # PATCH/PUT /vote/votes/1
   # PATCH/PUT /vote/votes/1.json
   def update
+    Vote::VoteMain.import(params[:vote_vote_main][:data_file], params[:vote_vote_main][:data_file_has_title]) if params[:vote_vote_main][:data_file]
     respond_to do |format|
       if @vote.update(vote_params)
         format.html { redirect_to @vote, notice: 'Vote was successfully updated.' }
@@ -97,6 +98,6 @@ class Vote::VoteMainsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def vote_params
-    params.require(:vote_vote_main).permit(:name, :start_time, :stop_time, :url, :en_name, :max_num, :min_num, :vote_item)
+    params.require(:vote_vote_main).permit(:name, :start_time, :stop_time, :url, :en_name, :max_num, :min_num, :vote_item, :bingo_num)
   end
 end

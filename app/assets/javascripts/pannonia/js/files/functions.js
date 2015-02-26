@@ -4,14 +4,14 @@ initPage = function () {
   //===== Form wizards =====//
 
   $(".wizard_form").formwizard({
-    validationEnabled: false,
+    validationEnabled: true,
     validationOptions: {promptPosition : "topRight:-122,-5"},
     focusFirstInput: false,
     textNext: '下一步',
     textBack: '后退',
-    textSubmit: '提交'
+    textSubmit: '提交',
+    disableInputFields: false
   });
-  $("#new_vote_vote_main").validationEngine({promptPosition : "topRight:-122,-5"});
 
   //===== Hide/show sidebar =====//
   $('.fullview').click(function () {
