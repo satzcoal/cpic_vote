@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Vote::VoteTest < ActiveSupport::TestCase
+class Vote::VoteMainTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

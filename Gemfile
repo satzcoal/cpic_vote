@@ -45,3 +45,7 @@ gem 'roo'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 gem 'quiet_assets', :group => :development
+
+group :test, :development do
+  gem 'rspec-rails'
+end
