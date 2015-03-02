@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'file_tools'
 class Vote::VoteMain < ActiveRecord::Base
 
   has_many :ins_votes, :class_name => 'Vote::InsVote', foreign_key: :vote_id
@@ -25,8 +26,8 @@ class Vote::VoteMain < ActiveRecord::Base
     end
   end
 
-  def self.import(vote, file, has_title)
-    spreadsheet = open_spreadsheet(file)
+  def import(file, has_title)
+    spreadsheet = FileTools.open_spreadsheet(file)
     if has_title
       header = spreadsheet.row(1)
     else
@@ -36,25 +37,16 @@ class Vote::VoteMain < ActiveRecord::Base
 
     ((has_title ? 2 : 1)..spreadsheet.last_row).each do |i|
       #row = Hash[[header, spreadsheet.row(i)].transpose]
-      item = vote.vote_items.build
-      vote.titles = header.join('|||')
+      item = self.vote_items.build
+      self.titles = header.join('|||')
       item.content = spreadsheet.row(i).join('|||')
 
       #item.attributes = row.to_hash.slice(*accessible_attributes)
     end
   end
 
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-      when ".csv" then
-        Roo::CSV.new(file.path, nil)
-      when ".xls" then
-        Roo::Excel.new(file.path, nil, :ignore)
-      when ".xlsx" then
-        Roo::Excelx.new(file.path, nil, :ignore)
-      else
-        raise "Unknown file type: #{file.original_filename}"
-    end
+  def enable
+
   end
 
   def prepare
@@ -70,6 +62,14 @@ class Vote::VoteMain < ActiveRecord::Base
   end
 
   def publish
+
+  end
+
+  def close
+
+  end
+
+  def disable
 
   end
 end
