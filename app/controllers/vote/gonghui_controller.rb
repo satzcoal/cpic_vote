@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Vote::GonghuiController < ApplicationController
-  @@vote = Vote::Vote.find_by_en_name('Gonghui')
+  @@vote = Vote::VoteMain.find_by_en_name('Gonghui')
 
   before_action :set_ins
 

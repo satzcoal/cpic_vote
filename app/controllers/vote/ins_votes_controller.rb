@@ -23,7 +23,7 @@ class Vote::InsVotesController < ApplicationController
   def unvote
     voter_id = session[:user_id]
     user_id = params[:user_id]
-    Vote::GonghuiUserRelation.where(:voter_id => voter_id, :user_id => user_id).each { |r| r.destroy }
+    #Vote::GonghuiUserRelation.where(:voter_id => voter_id, :user_id => user_id).each { |r| r.destroy }
     redirect_to :back, notice: '取消成功！'
   end
 

@@ -1,11 +1,16 @@
 var initPage;
 initPage = function () {
 
-  var form = $("#new_vote_vote").show();
-  form.steps({
-    headerTag: "h3",
-    bodyTag: "fieldset",
-    transitionEffect: "slideLeft"
+  //===== Form wizards =====//
+
+  $(".wizard_form").formwizard({
+    validationEnabled: true,
+    validationOptions: {promptPosition : "topRight:-122,-5"},
+    focusFirstInput: false,
+    textNext: '下一步',
+    textBack: '后退',
+    textSubmit: '提交',
+    disableInputFields: false
   });
 
   //===== Hide/show sidebar =====//
@@ -127,6 +132,10 @@ initPage = function () {
       bootbox.dialog(f, cb);
     }
   );
+
+  $(".styled").uniform({ radioClass: 'choice' });
+
+  $(".validate_form").validationEngine({promptPosition : "topRight:-122,-5"});
 }
 $(document).ready(initPage);
 $(document).on('page:load', initPage);
