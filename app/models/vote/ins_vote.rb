@@ -7,9 +7,7 @@ class Vote::InsVote < ActiveRecord::Base
   has_many :results, :class_name => 'Vote::VoteItem', :through => :relations, :source => :item
 
   def vote_item(item_id)
-    self.transaction do
-      self.relations.build(:item_id => item_id).save
-    end
+    self.relations.build(:item_id => item_id).save
   end
 
   def is_validate?(offset=0)
