@@ -3,13 +3,17 @@ require 'file_tools'
 class Vote::VoteMain < ActiveRecord::Base
 
   has_many :ins_votes, :class_name => 'Vote::InsVote', foreign_key: :vote_id
-  has_many :vote_items, :class_name => 'Vote::VoteItem', foreign_key: :vote_id
+  has_many :items, :class_name => 'Vote::VoteItem', foreign_key: :vote_id
+  has_many :results, :class_name => 'Vote::VoteRes', foreign_key: :vote_id
 
   #before_save 'Vote::VoteMain.gen_tmp_class vote_item, en_name'
 
   #define_model_callbacks :prepare, :process, :finish, :publish
 
-  STATUS = {
+  STATUSES = [STATUS_NEW = 0, STATUS_ENABLE = 1, STATUS_PROCESS = 2, STATUS_FINISH = 3,
+            STATUS_FINISH_NO_CAL = 13, STATUS_PUBLISH = 4, STATUS_CLOSE = 5, STATUS_DISABLE = 100..199]
+
+  STATUS_DICT = {
       0 => '未启用',
       1 => '已启用',
       2 => '正在投票',
@@ -23,7 +27,7 @@ class Vote::VoteMain < ActiveRecord::Base
     if code.to_i > 100
       '已禁用'
     else
-      STATUS[code]
+      STATUS_DICT[code]
     end
   end
 
@@ -48,12 +52,12 @@ class Vote::VoteMain < ActiveRecord::Base
 
   def enable
     self.transaction do
-      case self.status
-        when 0 then
-          self.status = 1
-        when 1..99 then
-        else
-          self.status -= 100
+      if self.status == STATUS_NEW
+          self.status = STATUS_ENABLE
+      elsif self.status > 99
+        self.status -= 100
+      else
+        raise '启用投票前投票状态必须为【未启用】或【已禁用】'
       end
       self.save
     end
@@ -61,8 +65,8 @@ class Vote::VoteMain < ActiveRecord::Base
 
   def process
     self.transaction do
-      if self.status == 1
-        self.status = 2
+      if self.status == STATUS_ENABLE
+        self.status = STATUS_PROCESS
         self.save
       else
         raise '开始投票前投票状态必须为【已启用】'
@@ -72,12 +76,12 @@ class Vote::VoteMain < ActiveRecord::Base
 
   def finish
     self.transaction do
-      if self.status == 2
-        if WorkOutVoteRes(self)
-          self.status = 3
+      if self.status == STATUS_PROCESS
+        if WorkOutVoteRes.call(self)
+          self.status = STATUS_FINISH
           self.save
         else
-          self.status = 13
+          self.status = STATUS_FINISH_NO_CAL
           self.save
         end
       else
@@ -88,12 +92,9 @@ class Vote::VoteMain < ActiveRecord::Base
 
   def work_out
     self.transaction do
-      if self.status == 13
-        if WorkOutVoteRes(self)
-          self.status = 3
-          self.save
-        else
-          self.status = 13
+      if self.status == STATUS_FINISH_NO_CAL
+        if WorkOutVoteRes.call(self)
+          self.status = STATUS_FINISH
           self.save
         end
       end
@@ -102,8 +103,8 @@ class Vote::VoteMain < ActiveRecord::Base
 
   def publish
     self.transaction do
-      if self.status == 3
-        self.status = 4
+      if self.status == STATUS_FINISH
+        self.status = STATUS_PUBLISH
         self.save
       else
         raise '公布结果前投票状态必须为【已截止】'
@@ -113,8 +114,8 @@ class Vote::VoteMain < ActiveRecord::Base
 
   def close
     self.transaction do
-      if self.status == 4 || self.status == 3
-        self.status = 5
+      if self.status == STATUS_PUBLISH || self.status == STATUS_FINISH
+        self.status = STATUS_CLOSE
         self.save
       else
         raise '公布结果前投票状态必须为【已截止】或【正在公布】'

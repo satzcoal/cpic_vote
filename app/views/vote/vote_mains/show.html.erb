@@ -1,24 +1,179 @@
-<p id="notice"><%= notice %></p>
+<div class="widget">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <h6>供应商资料</h6>
+      <%= link_to '返回', info_providers_path, :class => 'btn btn-warning pull-right' %>
+      <%= link_to '删除', @info_provider, method: :delete, data: {confirm: '确认删除吗?'}, :class => 'btn btn-danger pull-right' %>
+      <%= link_to '编辑', edit_info_provider_path(@info_provider), :class => 'btn btn-success pull-right' %>
+    </div>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @vote.name %>
-</p>
+  <div class="well invoice">
 
-<p>
-  <strong>Start time:</strong>
-  <%= @vote.start_time %>
-</p>
+    <div class="invoice-head">
+      <div class="invoice-logo" style="margin-left: 20px; ">
+        <span>供应商编号：<%= @info_provider.pid %></span>
 
-<p>
-  <strong>Stop time:</strong>
-  <%= @vote.stop_time %>
-</p>
+        <h1 style="line-height: 20px;"><%= @info_provider.name %>
+          <% if @info_provider.has_short_name? %>（<%= @info_provider.shortName %>）
+          <% end %></h1>
+      </div>
 
-<p>
-  <strong>Url:</strong>
-  <%= @vote.url %>
-</p>
+      <div class="total pull-right" style="margin: 0px; margin-right: 20px;">
+        <span>当前未结款</span>
+        <strong class="text-error">￥<%= @info_provider.finance.amount %></strong>
+      </div>
+    </div>
 
-<%= link_to 'Edit', edit_vote_vote_main_path(@vote) %> |
-<%= link_to 'Back', vote_vote_mains_path %>
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="invoice-from pull-left">
+          <h5>联系信息</h5>
+          <ul class="plus-list">
+            <li>地址：<%= @info_provider.address %></li>
+            <li>联系人：<%= @info_provider.contact %></li>
+            <% if @info_provider.tel %>
+              <li>固定电话：<strong class="text-error"><%= @info_provider.tel %></strong></li>
+            <% end %>
+            <% if @info_provider.mobile_tel %>
+              <li>手机：<strong class="text-error"><%= @info_provider.mobile_tel %></strong></li>
+            <% end %>
+            <% if @info_provider.fax %>
+              <li>传真：<strong class="text-error"><%= @info_provider.fax %></strong></li>
+            <% end %>
+            <% if @info_provider.zip %>
+              <li>邮编：<%= @info_provider.zip %></li>
+            <% end %>
+            <% if @info_provider.email %>
+              <li>Email：<strong class="text-info"><%= @info_provider.email %></strong></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="span6">
+        <div class="invoice-to pull-left">
+          <h5>账户信息</h5>
+          <ul class="plus-list">
+            <% if @info_provider.bank %>
+              <li>开户行：<%= @info_provider.bank %></li>
+            <% end %>
+            <% if @info_provider.bankAccountNum %>
+              <li>银行账号：<%= @info_provider.bankAccountNum %></li>
+            <% end %>
+            <% if @info_provider.bankAccountName %>
+              <li>开户名称：<%= @info_provider.bankAccountName %></li>
+            <% end %>
+            <% if @info_provider.payType %>
+              <li>支付方式：<%= @info_provider.payType %></li>
+            <% end %>
+            <li>创建时间：<%= @info_provider.created_at.localtime().strftime('%Y-%m-%d %H:%M:%S') %></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="span4">
+        <div class="invoice-to pull-left">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar" style="margin-top: 1px">
+    <div class="navbar-inner">
+      <h6>近期采购订单记录</h6>
+      <%= link_to '查看全部', edit_info_provider_path(@info_provider), :class => 'btn btn-success pull-right' %>
+      <button type="button" class="btn btn-info pull-right">新建订单</button>
+    </div>
+  </div>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Descrition</th>
+      <th>Discount</th>
+      <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Concept</td>
+      <td>Creating project concept and logic</td>
+      <td>0</td>
+      <td><strong>$1,100</strong></td>
+    </tr>
+    <tr>
+      <td>General design</td>
+      <td>Design prototype</td>
+      <td>0</td>
+      <td><strong>$2,000</strong></td>
+    </tr>
+    <tr>
+      <td>Front end development</td>
+      <td>Coding and connecting front end</td>
+      <td>0</td>
+      <td><strong>$1,600</strong></td>
+    </tr>
+    <tr>
+      <td>Database</td>
+      <td>Creating and connecting database</td>
+      <td>0</td>
+      <td><strong>$890</strong></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="navbar" style="margin-top: 1px">
+    <div class="navbar-inner">
+      <h6>近期账务记录</h6>
+      <%= link_to "查看全部(#{@info_provider.finance.fin_dtls.count})", info_pfd_index_with_provider_path(@info_provider), :class => 'btn btn-success pull-right' %>
+    </div>
+  </div>
+  <% if @info_provider.finance.fin_dtls.empty? %>
+    <div class="alert">
+      <strong>Sorry！</strong>此供应商近期没有账务记录！
+    </div>
+  <% else %>
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th>编号</th>
+        <th>说明</th>
+        <th>金额</th>
+        <th>修改时间</th>
+        <th>进出账</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @info_provider.finance.fin_dtls.order(:updated_at => :desc).limit(5).each do |dtl| %>
+        <tr>
+          <td><%= link_to dtl.pfd_id, dtl %></td>
+          <td><%= dtl.comment %></td>
+          <td><%= dtl.money %></td>
+          <td><%= dtl.updated_at.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          <td><%= if dtl.in_or_out
+                    raw '<span class="text-error"><strong>进账</strong></span>'
+                  else
+                    raw '<span class="text-success"><strong>出账</strong></span>'
+                  end %></td>
+          <td><%= if dtl.status_id == 0
+                    raw "<span class=\"label label-success\">#{GJD::Application::DICT_CFD_STATUS[dtl.status_id]}</span>"
+                  elsif dtl.status_id == 1
+                    raw "<span class=\"label label-important\">#{GJD::Application::DICT_CFD_STATUS[dtl.status_id]}</span>"
+                  elsif dtl.status_id == 2
+                    raw "<span class=\"label\">#{GJD::Application::DICT_CFD_STATUS[dtl.status_id]}</span>"
+                  end %></td>
+          <td>
+            <% if dtl.status_id == 0 %>
+              <%= link_to '执行', info_pfd_proceed_path(dtl) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+</div>

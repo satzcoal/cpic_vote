@@ -2,9 +2,27 @@ Rails.application.routes.draw do
   #---------------------------------------LEE ADD START
 
   namespace :vote do
-
+    controller :vote_mains do
+      scope :vote_mains do
+        get ':id/enable' => :enable
+        get ':id/process' => :begin
+        get ':id/finish' => :finish
+        get ':id/publish' => :publish
+        get ':id/close' => :close
+        get ':id/disable' => :disable
+      end
+    end
     resources :vote_mains
 
+    controller :ins_votes do
+      scope :ins_votes do
+        get 'show_for_vote/:vote_id' => :show
+        get ':ins_id/submit' => :submit
+        get ':ins_id/edit' => :edit
+        get ':ins_id/select/:item_id' => :select_item
+        get ':ins_id/cancel/:item_id' => :cancel_item
+      end
+    end
   end
 
   namespace :origin do

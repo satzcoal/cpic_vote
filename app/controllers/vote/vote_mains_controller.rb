@@ -1,11 +1,11 @@
 #encoding: utf-8
 class Vote::VoteMainsController < ApplicationController
-  before_action :set_vote, only: [:show, :edit, :update, :destroy, :prepare, :begin, :finish, :publish]
+  before_action :set_vote, only: [:show, :edit, :update, :destroy, :enable, :begin, :finish, :publish, :close, :disable]
 
   # GET /vote/votes
   # GET /vote/votes.json
   def index
-    @votes = Vote::VoteMain.all
+    @votes = Vote::VoteMain.order(:id)
   end
 
   # GET /vote/votes/1
@@ -54,19 +54,19 @@ class Vote::VoteMainsController < ApplicationController
     end
   end
 
-  # STATUS: new -> prepare
-  def prepare
-    @vote.prepare
+  # STATUS: new -> enable
+  def enable
+    @vote.enable
     redirect_to :back, notice: "投票[#{@vote.name}]已启用！"
   end
 
-  # STATUS: prepare -> begin
+  # STATUS: enable -> begin
   def begin
-    @vote.begin
+    @vote.process
     redirect_to :back, notice: "投票[#{@vote.name}]已经开始！"
   end
 
-  # STATUS: begin -> finish
+  # STATUS: process -> finish
   def finish
     @vote.finish
     redirect_to :back, notice: "投票[#{@vote.name}]已经截止！"
@@ -78,15 +78,15 @@ class Vote::VoteMainsController < ApplicationController
     redirect_to :back, notice: "投票[#{@vote.name}]的结果已经公布！"
   end
 
-  # STATUS: * -> over
-  def over
-    @vote.over
+  # STATUS: [finish||publish] -> close
+  def close
+    @vote.close
     redirect_to :back, notice: "投票[#{@vote.name}]已经归档！"
   end
 
-  # STATUS: * -> destroy
-  def destroy
-    @vote.destroy
+  # STATUS: * -> disable
+  def disable
+    @vote.disable
     redirect_to :back, notice: "投票[#{@vote.name}]已禁用！"
   end
 

@@ -39,9 +39,9 @@
     <tbody>
     <% @cur_votes.each do |v| %>
       <tr>
-        <td><%= link_to v.name, v.url %></td>
-        <td><%= v.start_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
-        <td><%= v.stop_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= link_to v.name, "/vote/ins_votes/show_for_vote/#{v.id}" %></td>
+        <td><%= time_format v.start_time %></td>
+        <td><%= time_format v.stop_time %></td>
         <td>
           <% ins = v.ins_votes.where(:user_id => session[:user_id]).first %>
           <%= if ins == nil || ins.status == 0
@@ -77,7 +77,7 @@
     <tbody>
     <% @will_votes.each do |v| %>
       <tr>
-        <td><%= link_to v.name, v.url %></td>
+        <td><%= link_to v.name, "/vote/ins_votes/show_for_vote/#{v.id}" %></td>
         <td><%= time_format v.start_time %></td>
         <td><%= time_format v.stop_time %></td>
       </tr>
@@ -108,9 +108,9 @@
     <tbody>
     <% @done_votes.each do |v| %>
       <tr>
-        <td><%= link_to v.name, v.url %></td>
-        <td><%= v.start_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
-        <td><%= v.stop_time.localtime.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= link_to v.name, "/vote/ins_votes/show_for_vote/#{v.id}" %></td>
+        <td><%= time_format v.start_time %></td>
+        <td><%= time_format v.stop_time %></td>
         <td>
           <% ins = v.ins_votes.where(:user_id => session[:user_id]).first %>
           <%= if ins == nil || ins.status == 0

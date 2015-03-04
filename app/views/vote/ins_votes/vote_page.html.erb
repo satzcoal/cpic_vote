@@ -1,0 +1,79 @@
+<% vote = @ins_vote.vote %>
+<h5 class="widget-name"><i class="fa fa-edit"></i><%= vote.name %></h5>
+<% if @ins_vote.status != 0 %>
+  <div class="alert widget">
+    您已经完成了投票，请在投票截止后查询投票结果！</a>
+  </div>
+<% else %>
+  <div class="alert widget">
+    本次投票最多可投<%= vote.max_num %>人，最少可投<%= vote.min_num %>人，最终选取前<%= vote.bingo_num %>人入选，请在下面的候选人表格中点击选择进行投票！
+  </div>
+<% end %>
+<div class="navbar">
+  <div class="navbar-inner">
+    <h6>已选择列表</h6>
+    <% if @ins_vote.status == 0 %>
+      <%= link_to '提交', "/vote/ins_votes/#{@ins_vote.id}/submit", :class => 'btn btn-success pull-right' %>
+    <% else %>
+      <%= link_to '返回修改', "/vote/ins_votes/#{@ins_vote.id}/edit", :class => 'btn btn-info pull-right' %>
+    <% end %>
+  </div>
+</div>
+<% if @ins_vote.results.empty? %>
+  <div class="alert">
+    您暂时还没有选择候选人，请在下面的候选人表格内选择！
+  </div>
+<% else %>
+  <table class="table table-striped table-bordered table-condensed table-hover">
+    <thead>
+    <tr>
+      <th>姓名</th>
+      <th>部门</th>
+      <th>处室</th>
+      <% if @ins_vote.status == 0 %>
+        <th>操作</th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% @ins_vote.results.each do |u| %>
+      <tr>
+        <td><%= u %></td>
+        <td><%= u %></td>
+        <td><%= u %></td>
+        <% if @ins_vote.status == 0 %>
+          <td><%= link_to '取消', "/vote/ins_votes/#{@ins_vote.id}/cancel/#{u.id}", :class => 'btn btn-danger' %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<% if @ins_vote.status == 0 %>
+  <h5></h5>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <h6>候选人列表</h6>
+    </div>
+  </div>
+  <table class="table table-striped table-bordered table-condensed table-hover" id="filer-table">
+    <thead>
+    <tr>
+      <th>姓名</th>
+      <th>部门</th>
+      <th>处室</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% vote.items.each do |item| %>
+      <tr>
+        <td><%= item %></td>
+        <td><%= item %></td>
+        <td><%= item %></td>
+        <td><%= link_to '选择', "/vote/ins_votes/#{@ins_vote.id}/select/#{item.id}", :class => 'btn btn-info' %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
