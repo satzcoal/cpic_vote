@@ -14,6 +14,7 @@
 //= require_tree ./jquery
 //= require_tree ./jquery-ui
 //= require_tree ./pannonia
+//= require jquery_ujs
 
 
 

@@ -1,0 +1,9 @@
+<tr id="title_line_<%= title_line[0] %>">
+  <td><%= title_line[1]['name'] %></td>
+  <td><%= title_line[1]['data_col'] %></td>
+  <td>
+    <%= link_to '修改', vote_vote_main_path + "/titles/#{title_line[0]}/edit", :remote => true %>
+    <%= link_to ' 上移', vote_vote_main_path + "/titles/#{title_line[0]}/up" unless title_line[0] == '0' %>
+    <%= link_to ' 下移', vote_vote_main_path + "/titles/#{title_line[0]}/down" unless title_line[0] == (total_num - 1).to_s %>
+  </td>
+</tr>

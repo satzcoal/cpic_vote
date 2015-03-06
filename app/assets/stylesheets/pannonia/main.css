@@ -1300,7 +1300,7 @@ table { max-width: 100%; background-color: transparent; border-collapse: collaps
 
 
 
-/*===== Pagination =====*/
+/*===== Pagination =====
 
 .pagination { font-size: 0; line-height: 1; }
 .pagination ul { display: inline-block; *display: inline; margin-bottom: 0; margin-left: 0; *zoom: 1;
@@ -1333,7 +1333,7 @@ table { max-width: 100%; background-color: transparent; border-collapse: collaps
 .pagination-large ul > li > a, .pagination-large ul > li > span { padding: 8px 14px; font-size: 14px; }
 .pagination-small ul > li > a, .pagination-small ul > li > span { padding: 2px 10px 1px 10px; font-size: 11px; }
 .pagination-mini ul > li > a, .pagination-mini ul > li > span { padding: 1px 8px 0 8px; font-size: 11px; }
-
+*/
 
 
 /*===== Pager =====*/

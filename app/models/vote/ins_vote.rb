@@ -32,7 +32,7 @@ class Vote::InsVote < ActiveRecord::Base
         ins.status = 1
         ins.save
       else
-        return "您选择的数量不足，请继续选择！"
+        return '您选择的数量不足，请继续选择！'
       end
     end
     return nil

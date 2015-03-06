@@ -11,7 +11,7 @@ class Vote::VoteMain < ActiveRecord::Base
   #define_model_callbacks :prepare, :process, :finish, :publish
 
   STATUSES = [STATUS_NEW = 0, STATUS_ENABLE = 1, STATUS_PROCESS = 2, STATUS_FINISH = 3,
-            STATUS_FINISH_NO_CAL = 13, STATUS_PUBLISH = 4, STATUS_CLOSE = 5, STATUS_DISABLE = 100..199]
+              STATUS_FINISH_NO_CAL = 13, STATUS_PUBLISH = 4, STATUS_CLOSE = 5, STATUS_DISABLE = 100..199]
 
   STATUS_DICT = {
       0 => '未启用',
@@ -39,12 +39,20 @@ class Vote::VoteMain < ActiveRecord::Base
       header = []
       spreadsheet.last_column.times { |x| header[x] = "tmp#{x}" }
     end
+    titles_tmp = {}
+    header.each_with_index do |h, index|
+      titles_tmp[index] = {name: h, data_col: index}
+    end
+    self.titles = titles_tmp
 
-    ((has_title ? 2 : 1)..spreadsheet.last_row).each do |i|
+    ((has_title ? 2 : 1)..spreadsheet.last_row).each do |i, index|
       #row = Hash[[header, spreadsheet.row(i)].transpose]
-      item = self.vote_items.build
-      self.titles = header.join('|||')
-      item.content = spreadsheet.row(i).join('|||')
+      item = self.items.build
+      content_tmp = {}
+      spreadsheet.row(i).each_with_index do |c, index|
+        content_tmp[index] = c
+      end
+      item.content = content_tmp
 
       #item.attributes = row.to_hash.slice(*accessible_attributes)
     end
@@ -53,7 +61,7 @@ class Vote::VoteMain < ActiveRecord::Base
   def enable
     self.transaction do
       if self.status == STATUS_NEW
-          self.status = STATUS_ENABLE
+        self.status = STATUS_ENABLE
       elsif self.status > 99
         self.status -= 100
       else
@@ -126,6 +134,14 @@ class Vote::VoteMain < ActiveRecord::Base
   def disable
     self.transaction do
       self.status += 100 unless self.status > 99
+      self.save
+    end
+  end
+
+  def swap_titles(a_index, b_index)
+    self.transaction do
+      self.titles[a_index.to_s], self.titles[b_index.to_s] = self.titles[b_index.to_s], self.titles[a_index.to_s]
+      self.titles_will_change!
       self.save
     end
   end

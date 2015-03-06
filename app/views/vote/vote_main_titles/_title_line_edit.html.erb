@@ -1,0 +1,5 @@
+<tr id="title_line_edit_<%= title_line[0] %>">
+  <td><%= text_field_tag "title#{title_line[0]}_name", title_line[1]['name'] %></td>
+  <td><%= text_field_tag "title#{title_line[0]}_data_col", title_line[1]['data_col'] %></td>
+  <td><%= submit_tag '保存', name: "title_update_#{title_line[0]}" %></td>
+</tr>

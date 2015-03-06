@@ -12,6 +12,15 @@ Rails.application.routes.draw do
         get ':id/disable' => :disable
       end
     end
+
+    controller :vote_main_titles do
+      scope :vote_mains do
+        get ':id/titles/:title_index/up' => :title_up
+        get ':id/titles/:title_index/down' => :title_down
+        get ':id/titles/:title_index/edit' => :title_edit
+        post ':id/titles/update' => :titles_update
+      end
+    end
     resources :vote_mains
 
     controller :ins_votes do

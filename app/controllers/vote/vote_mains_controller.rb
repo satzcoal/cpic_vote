@@ -11,6 +11,7 @@ class Vote::VoteMainsController < ApplicationController
   # GET /vote/votes/1
   # GET /vote/votes/1.json
   def show
+    @info_provider = TmpModel.new
   end
 
   # GET /vote/votes/new
@@ -54,6 +55,16 @@ class Vote::VoteMainsController < ApplicationController
     end
   end
 
+  # DELETE /vote/votes/1
+  # DELETE /vote/votes/1.json
+  def destroy
+    @vote.destroy
+    respond_to do |format|
+      format.html { redirect_to vote_vote_mains_url, notice: 'Vote was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   # STATUS: new -> enable
   def enable
     @vote.enable
@@ -91,7 +102,6 @@ class Vote::VoteMainsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_vote
     @vote = Vote::VoteMain.find(params[:id])
   end
