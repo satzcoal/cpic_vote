@@ -19,12 +19,15 @@
     </tr>
     </thead>
     <tbody>
-    <% @vote.items.page(params[:page]).each do |item| %>
+    <% items_total_num = @vote.items.count
+       @vote.items.page(params[:page]).each_with_index do |item, index| %>
       <tr>
         <% item.content.keys.each do |key| %>
           <td><%= item.content[key] %></td>
         <% end %>
-        <td></td>
+        <td>
+          <%= vote_item_op_button vote_vote_main_path + '/items', index, items_total_num %>
+        </td>
       </tr>
     <% end %>
 <% end %>

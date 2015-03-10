@@ -1,6 +1,6 @@
 #encoding: utf-8
 module Vote::VoteMainsHelper
-  def vote_index_op_buttom(vote)
+  def vote_index_op_button(vote)
     res = ''
     res += (link_to '启用', "/vote/vote_mains/#{vote.id}/enable") + ' ' if vote.status == 0 || vote.status > 99
     case vote.status
