@@ -41,3 +41,5 @@ gem 'quiet_assets', :group => :development
 group :test, :development do
   gem 'rspec-rails'
 end
+
+gem 'redis-objects'
