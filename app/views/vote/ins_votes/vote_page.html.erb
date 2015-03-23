@@ -27,22 +27,22 @@
   <table class="table table-striped table-bordered table-condensed table-hover">
     <thead>
     <tr>
-      <th>姓名</th>
-      <th>部门</th>
-      <th>处室</th>
+      <% vote.titles.sort.each do |header| %>
+        <th><%= header[1]['name'] %></th>
+      <% end %>
       <% if @ins_vote.status == 0 %>
         <th>操作</th>
       <% end %>
     </tr>
     </thead>
     <tbody>
-    <% @ins_vote.results.each do |u| %>
+    <% @ins_vote.results.each do |item| %>
       <tr>
-        <td><%= u %></td>
-        <td><%= u %></td>
-        <td><%= u %></td>
+        <% vote.titles.sort.each do |header| %>
+          <td><%= item.content[header[1]['data_col'].to_s] %></td>
+        <% end %>
         <% if @ins_vote.status == 0 %>
-          <td><%= link_to '取消', "/vote/ins_votes/#{@ins_vote.id}/cancel/#{u.id}", :class => 'btn btn-danger' %></td>
+          <td><%= link_to '取消选择', "/vote/ins_votes/#{@ins_vote.id}/cancel/#{item.id}", :class => 'btn btn-danger' %></td>
         <% end %>
       </tr>
     <% end %>
@@ -59,18 +59,18 @@
   <table class="table table-striped table-bordered table-condensed table-hover" id="filer-table">
     <thead>
     <tr>
-      <th>姓名</th>
-      <th>部门</th>
-      <th>处室</th>
+      <% vote.titles.sort.each do |header| %>
+        <th><%= header[1]['name'] %></th>
+      <% end %>
       <th>操作</th>
     </tr>
     </thead>
     <tbody>
-    <% vote.items.each do |item| %>
+    <% (vote.items - @ins_vote.results).each do |item| %>
       <tr>
-        <td><%= item %></td>
-        <td><%= item %></td>
-        <td><%= item %></td>
+        <% vote.titles.sort.each do |header| %>
+          <td><%= item.content[header[1]['data_col'].to_s] %></td>
+        <% end %>
         <td><%= link_to '选择', "/vote/ins_votes/#{@ins_vote.id}/select/#{item.id}", :class => 'btn btn-info' %></td>
       </tr>
     <% end %>

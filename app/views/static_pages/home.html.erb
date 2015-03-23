@@ -114,9 +114,9 @@
         <td>
           <% ins = v.ins_votes.where(:user_id => session[:user_id]).first %>
           <%= if ins == nil || ins.status == 0
-                raw '<span class="label label-warning">未投票</span>'
+                '<span class="label label-warning">未投票</span>'.html_safe
               else
-                raw '<span class="label label-success">已投票</span>'
+                '<span class="label label-success">已投票</span>'.html_safe
               end %>
         </td>
       </tr>

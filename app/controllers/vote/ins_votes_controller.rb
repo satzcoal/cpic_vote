@@ -2,7 +2,7 @@
 class Vote::InsVotesController < ApplicationController
 
   def show
-    voter_id = session[:voter_id]
+    voter_id = session[:user_id]
     vote_id = params[:vote_id]
     @ins_vote = Vote::InsVote.find_or_create_by(:vote_id => vote_id, :user_id => voter_id)
 

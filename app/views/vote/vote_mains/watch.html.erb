@@ -1,0 +1,50 @@
+<h5 class="widget-name"><i class="fa fa-edit"></i><%= @vote.name %></h5>
+<div class="well invoice">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="invoice-from pull-left">
+        <h5>基本信息</h5>
+        <ul class="plus-list">
+          <li>投票名称：<%= @vote.name %></li>
+          <li>当前状态：<%= Vote::VoteMain.get_status @vote.status %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="span6">
+      <div class="invoice-to pull-left">
+        <h5>监控信息</h5>
+        <ul class="plus-list">
+          <li>截止时间：<%= time_format @vote.stop_time %></li>
+          <li>已参与投票人数：<%= Vote::InsVote.where(:vote_id => @vote.id).size %></li>
+          <li>已提交投票人数：<%= Vote::InsVote.where(:vote_id => @vote.id, :status => 1).size %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="navbar">
+  <div class="navbar-inner">
+    <h6>目前得票情况</h6>
+  </div>
+</div>
+<table class="table table-striped table-bordered table-condensed table-hover" id="filer-table">
+  <thead>
+  <tr>
+    <% @vote.titles.sort.each do |header| %>
+      <th><%= header[1]['name'] %></th>
+    <% end %>
+    <th>得票数</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @vote.results.sort_by { |res| -res.index }.each do |res| %>
+    <tr>
+      <% @vote.titles.sort.each do |header| %>
+        <td><%= res.item.content[header[1]['data_col'].to_s] %></td>
+      <% end %>
+      <td><%= res.index %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

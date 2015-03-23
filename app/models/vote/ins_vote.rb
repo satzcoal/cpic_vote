@@ -21,7 +21,7 @@ class Vote::InsVote < ActiveRecord::Base
   end
 
   def self.cancel_item(ins_id, item_id)
-    Vote::VoteRelation.where(:ins_id => ins_id, :item_id => item_id).first.destroy
+    Vote::VoteRelation.where(:ins_id => ins_id, :item_id => item_id).try(:first).try(:destroy)
     return nil
   end
 

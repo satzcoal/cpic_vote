@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Vote::VoteMainsController < ApplicationController
-  before_action :set_vote, only: [:show, :edit, :update, :destroy, :enable, :begin, :finish, :publish, :close, :disable]
+  before_action :set_vote, only: [:show, :edit, :update, :destroy, :enable, :begin, :finish, :publish, :close, :disable, :watch, :result, :reset]
 
   # GET /vote/votes
   # GET /vote/votes.json
@@ -99,6 +99,18 @@ class Vote::VoteMainsController < ApplicationController
   def disable
     @vote.disable
     redirect_to :back, notice: "投票[#{@vote.name}]已禁用！"
+  end
+
+  def watch
+    @vote.work_out
+  end
+
+  def result
+  end
+
+  def reset
+    @vote.reset
+    redirect_to :back, notice: "投票[#{@vote.name}]已经重置！"
   end
 
   private

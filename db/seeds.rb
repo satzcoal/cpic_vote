@@ -23,10 +23,6 @@ site.sidebar_items.destroy_all
 if (site.sidebar_items.empty?)
   site.sidebar_items.build(name: '首页', url: '/')
 
-  main_item = site.sidebar_items.build(name: '投票列表', url: '#')
-  main_item.sub_items.build(name: '工会委员选举（海选）', url: '/vote/gonghui')
-  main_item.sub_items.build(name: '工会委员选举（复选）', url: '/vote/gonghui2')
-
   toupiao_item = site.sidebar_items.build(name: '投票管理', url: '#')
   toupiao_item.sub_items.build(name: '所有投票', url: '/vote/vote_mains')
 

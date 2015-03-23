@@ -10,6 +10,9 @@ Rails.application.routes.draw do
         get ':id/publish' => :publish
         get ':id/close' => :close
         get ':id/disable' => :disable
+        get ':id/watch' => :watch
+        get ':id/result' => :result
+        get ':id/reset' => :reset
       end
     end
 
@@ -56,8 +59,8 @@ Rails.application.routes.draw do
 
   get 'admin' => 'admin#index'
 
-  require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
+  #require 'sidekiq/web'
+  #mount Sidekiq::Web => '/sidekiq'
 
   get 'static_pages/home'
 

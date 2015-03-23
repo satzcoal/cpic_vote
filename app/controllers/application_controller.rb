@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
     user.sidebar_items.each do |item|
       return if item.url.include?(params[:controller])
     end
-    redirect_to static_pages_403_path
+    #redirect_to static_pages_403_path
+    return
   end
 
   # Set a filter that is invoked on every request

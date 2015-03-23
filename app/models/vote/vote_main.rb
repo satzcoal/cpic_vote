@@ -100,11 +100,8 @@ class Vote::VoteMain < ActiveRecord::Base
 
   def work_out
     self.transaction do
-      if self.status == STATUS_FINISH_NO_CAL
-        if WorkOutVoteRes.call(self)
-          self.status = STATUS_FINISH
-          self.save
-        end
+      if WorkOutVoteRes.call(self)
+        self.save
       end
     end
   end
@@ -134,6 +131,15 @@ class Vote::VoteMain < ActiveRecord::Base
   def disable
     self.transaction do
       self.status += 100 unless self.status > 99
+      self.save
+    end
+  end
+
+  def reset
+    self.transaction do
+      self.status = STATUS_NEW
+      self.ins_votes.destroy_all
+      self.results.destroy_all
       self.save
     end
   end
